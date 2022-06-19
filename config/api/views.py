@@ -12,6 +12,8 @@ class RoomView(generics.ListAPIView):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
 
+
+
 class CreateRoomView(APIView):
     serializer_class = CreateRoomSerializer
     def post(self, request, format=None):
@@ -25,6 +27,7 @@ class CreateRoomView(APIView):
             votes_to_skip = serializer.data.get('votes_to_skip')
             host = self.request.session.session_key
             queryset = Room.objects.filter(host = host)
+
             if queryset.exists():
                 room = queryset[0]
                 room.guest_can_pause = guest_can_pause
@@ -36,7 +39,7 @@ class CreateRoomView(APIView):
                 room.save()
                 return Response(RoomSerializer(room).data, status=status.HTTP_201_CREATED)
 
-            return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'Bad Request': 'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 
