@@ -84,6 +84,8 @@ class CreateRoomView(APIView):
         return Response({'Bad Request': 'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
 
 
+
+
 class LeaveRoom(APIView):
     def post(self, request):
         if 'room_code' in self.request.session:
@@ -95,6 +97,8 @@ class LeaveRoom(APIView):
                 room.delete()
 
         return Response({"Message":"success"}, status=status.HTTP_200_OK)
+
+
 
 
 class UserInRoom(APIView):
